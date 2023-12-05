@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.tip.edu.ph/assets/Uploads/TIP-INFORMAL-LOGO-04-2.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>Register | Office of Student Affairs</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        body {
+            height: 100vh;
+            background: linear-gradient(to bottom, lightgray, black); 
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background-repeat: no-repeat;
+        }
+    
+        .container {
+            overflow: hidden;
+            width: 550px;
+            max-width: 100%;
+            height: 650px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: yellow;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+     }
+
+        .header img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: left;
+            font-size: 20px;
+        }
+    
+        h2 {
+            font-weight: 800;
+            font-size: 25px;
+            margin-bottom: 20px;
+            color: black;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    
+        input[type="text"],
+        input[type="password"],
+        select {
+            border: 1px solid rgb(158, 158, 158);
+            padding: 1em;
+            margin: 0.5em 0;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow:5px 6px 0px rgba(0,0,0,0.1);
+        }
+
+        input[type="email"],
+        input[type="password"],
+        select {
+            border: 1px solid rgb(158, 158, 158);
+            padding: 1em;
+            margin: 0.5em 0;
+            width: 440px;
+            border-radius: 10px;
+            box-shadow:5px 6px 0px rgba(0,0,0,0.1);
+        
+        }
+        
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        } 
+    
+        button {
+            cursor: pointer;
+            border: 0;
+            padding: 1em 1.4em;
+            background: black;
+            color: black;
+            border-radius: 10px;
+            width: 80%;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+    
+        button:hover {
+            background: gray;
+        }
+    
+        .name-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            gap: 0.8em;
+            padding-right: 1em;
+            padding-left: 1em;
+   
+        }
+    
+        .name-container > input {
+            margin: 0;
+            font-size: small;
+        }
+    
+        .alert-error {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 1.2em;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgb(255, 114, 114);
+            padding: 1.3em 1em;
+            width: 20em;
+            border-radius: 5px;
+            opacity: 0;
+            z-index: 100;
+        }
+    
+        .alert-error > p {
+            color: rgb(83, 0, 0);
+        }
+    
+        @keyframes error {
+            0%, 90% {
+                opacity: 1;
+            }
+        }
+    
+        label {
+            font-size: 0.96em;
+        }
+    
+        .link {
+            font-size: 0.95em;
+            color: rgb(27, 27, 27);
+        }
+    
+        a {
+            color: rgb(27, 27, 27);
+            text-decoration: none; /* Add this line to remove underlines from links */
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="alert-error" id="alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; stroke: rgb(83, 0, 0);" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        <p>User already exists.</p>
+    </div>
+    <form action="/register" method="POST">
+            
+        <div class="container bg-warning" style="border-radius: 5%;">
+            <div class="header bg-warning">
+                <img src="https://storage.googleapis.com/bukas-website-v3-prd/website_v3/images/tip-blog-launch.width-800.png" alt="Header Image">
+            </div>
+            <h2>Create an account</h2>
+            <div class="name-container">
+                <div class="input-container">
+                    <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First Name" required>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last Name" aria-placeholder="Last Name" required>
+                </div>
+            </div>
+            <div class="name-container">
+                <div class="input-container">
+                    <input type="text" name="studentNumber" class="form-control" placeholder="Student Number" required>
+                </div>
+                <div class="input-container">
+                    <input type="text" name="contactNumber" class="form-control" placeholder="Contact Number" aria-placeholder="Contact Number" required>
+                </div>
+            </div>
+            <div class="input-container">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="input-container">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+           </div>
+           <center>
+            <div class="input-container col-4 ">
+                <select name="role" id="role" class="form-control">
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            </center>
+            <center>
+            <button type="submit" class="btn text-light" >Register</button>
+            <p class="link">Already have an account? <a href="/login">Login</a></p></center>
+       
+        </div>
+    </form>
+
+    <script>
+        var urlParams;
+        (window.onpopstate = function () {
+            var match,
+                pl     = /\+/g,
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query  = window.location.search.substring(1);
+        
+            urlParams = {};
+            while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+        })();
+        if (urlParams.status == "error") {
+            const alert = document.getElementById("alert-error");
+            alert.style.animation = "error 3.5s";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

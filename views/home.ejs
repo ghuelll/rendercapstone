@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,">
+  <link rel="icon" href="https://www.tip.edu.ph/assets/Uploads/TIP-INFORMAL-LOGO-04-2.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <title>Home | Office of Student Affairs</title>
+  <style>
+    body{
+      padding-top: 6rem;
+    }
+
+      .alert-success {
+            display: flex;
+            justify-content: start;
+            align-items: start;
+            gap: 0.5em;
+            position: relative;
+            background: rgb(247, 247, 247);
+            width: 100%;
+            border-radius: 5px;
+            animation: success 6s;
+            margin-bottom: 0 !important;
+            height: 6em;
+            border: 1px solid rgb(116, 116, 116);
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        @keyframes success {
+            0%, 90% {
+              opacity: 1;
+            }
+        }
+
+        .alert-success > .content {
+            all: unset;
+            color: rgb(31, 31, 31);
+            margin: 0.8em 0 !important;
+            cursor: pointer;
+        }
+
+        .push-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.7em;
+          position: fixed;
+          bottom: 1em;
+          right: 1em;
+          z-index: 99999999999999999999999999;
+          width: 25em;
+        }
+   </style>
+</head>
+<body>
+  <%- include('navbar') %>
+  <div class="push-container">
+
+    <% if (typeof appointment != "undefined") {
+      for (let i = 0; i < appointment.length && i < 4; i++) {
+        if (!appointment[i].viewed) {
+    %>
+    <div class="alert-success" id="<%= appointment[i].id %>" style="align-items: center; padding: 0 1em;">
+      <button onclick="document.getElementById('<%= appointment[i].id %>').style.display = 'none'" style="all: unset; position: absolute; top: 5px; right: 10px; cursor: pointer;">
+        <svg style="width: 15px; height: 15px; color:rgb(31, 31, 31);" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracurrentColorerCarrier" stroke-linecurrentcap="round" stroke-linejoin="round"></g><g id="SVGRepo_icurrentColoronCarrier"> <title>currentColorancurrentColorel</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="work-currentColorase" fill="currentColor" transform="translate(91.520000, 91.520000)"> <polygon id="Close" points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"> </polygon> </g> </g> </g></svg>
+      </button>
+      <a class="content" href="/appointmentView/<%=appointment[i].id%>">
+        <span style="font-weight: 600; ">
+          Apointment <%= appointment[i].status %>
+        </span><br>
+        <span style="font-size: 0.5;">
+          Your appointment is <%= appointment[i].status %>. Click for more details.
+        </span>
+      </a>
+    </div>
+    <% }}} %>
+
+    <% if (typeof notification != "undefined") {
+      for (let i = 0; i < notification.length && i < 4; i++) { 
+        if (viewed.includes(notification[i].id)) {
+    %>
+    <div class="alert-success" id="<%= notification[i].id %>">
+      <button onclick="document.getElementById('<%= notification[i].id %>').style.display = 'none'" style="all: unset; position: absolute; top: 5px; right: 10px; cursor: pointer;">
+        <svg style="width: 15px; height: 15px; color:rgb(31, 31, 31);" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracurrentColorerCarrier" stroke-linecurrentcap="round" stroke-linejoin="round"></g><g id="SVGRepo_icurrentColoronCarrier"> <title>currentColorancurrentColorel</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="work-currentColorase" fill="currentColor" transform="translate(91.520000, 91.520000)"> <polygon id="Close" points="328.96 30.2933333 298.666667 1.42108547e-14 164.48 134.4 30.2933333 1.42108547e-14 1.42108547e-14 30.2933333 134.4 164.48 1.42108547e-14 298.666667 30.2933333 328.96 164.48 194.56 298.666667 328.96 328.96 298.666667 194.56 164.48"> </polygon> </g> </g> </g></svg>
+      </button>
+      <a href="/announcementView" style="height: 100%;">
+        <img src="..<%= notification[i].image %>" alt="" style="height: 100%; aspect-ratio: 1/1; object-fit: cover;">
+      </a>
+      <a class="content" href="/announcementView">
+        <span style="font-weight: 600; ">
+          <%= notification[i].subject %>
+        </span><br>
+        <span style="font-size: 0.5;">
+          <%= notification[i].message.substring(0, 65) %>...
+        </span>
+      </a>
+    </div>
+    <% }}} %>
+  </div>
+
+  <main role="main">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item">
+          <img class="second-slide">
+          <div class="container">
+            <div class="carousel-caption text-left">
+              <h1>Message us so we can hear it from you.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-warning" href="/feedback" role="button">Give Feedback</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item active">
+          <img class="first-slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Get your lost stuff back!</h1>
+              <p>We help students get back their lost items in a simple and secure way.</p>
+              <center><div class="input-group col-md-8 mb-3">
+                <select class="custom-select d-block w-100" id="category" onchange="location = this.value;" required>
+                    <option selected disabled>Category</option>
+                    <option value="/item/all/lost">All</option>
+                    <option value="/item/accessories/lost">Accessories</option>
+                    <option value="/item/bag/lost">Bag</option>
+                    <option value="/item/docs/lost">Books and Documents</option>
+                    <option value="/item/clothing/lost">Clothing</option>
+                    <option value="/item/footwear/lost">Footwear</option>
+                    <option value="/item/electronics/lost">Electronics</option>
+                    <option value="/item/identification/lost">Identification</option>
+                    <option value="/item/jewelry/lost">Jewelry</option>
+                    <option value="/item/keys/lost">Keys</option>
+                    <option value="/item/miscellaneous/lost">Miscellaneous</option>
+                    <option value="/item/money/lost">Money</option>
+                    <option value="/item/sports/lost">Sports equipment</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid category.
+                </div>
+              </div></center>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="third-slide">
+          <div class="container">
+            <div class="carousel-caption text-right">
+              <h1>To keep you Updated.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-lg btn-warning" href="/announcementView" role="button">Announcements</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container marketing">
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-fluid" src="https://tagmefy.com/static/images/icon1.png" alt="Generic placeholder image" width="140" height="140">
+          <h2>Register lost or found object!</h2>
+          <p>Free, simple and fast registration. Select category, add picture and short description.</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-fluid" src="https://tagmefy.com/static/images/icon3.png" alt="Generic placeholder image" width="140" height="140">
+          <h2>Select auto-matched items!</h2>
+          <p>Our smart search agent will do the magic and show most relevant matches to your lost or found request.</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-fluid" src="https://tagmefy.com/static/images/icon2.png" alt="Generic placeholder image" width="140" height="140">
+          <h2>Send or get message!</h2>
+          <p>No matches? Don't worry. Thanks to our community and smart technology you will be notified if any new matches will be found.</p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+      <hr class="featurette-divider">
+
+      <h1>Latest Items</h1>
+      <div class="album py-5">
+        <div class="container">
+          <div class="row">
+            <% for (let i = 0; i < data.length && i < 12; i++) { %>
+              <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                  <img class="card-img-top mx-auto" src="<%= data[i].image %>" alt="Card image cap" style="height: 250px; width: 250px;">
+                  <div class="card-body">
+                    <h6 class="card-text"><%= data[i].objTitle.toUpperCase() %> <small><span class="text-muted"> <%= data[i].type === 'lost' ? '(Lost Item)' : '(Found Item)' %> </span></small></h6>
+                    <p class="card-text">Location: <%= data[i].location %></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" onclick="location = '/view/<%= data[i].type+'/'+data[i].id%>'" class="btn btn-sm btn-outline-secondary">View</button>
+
+                      </div>
+                      <small class="text-muted">
+                        <% const time = data[i].dataAdded.toDate().toLocaleTimeString('en-US');%>
+                        <%= time%>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <%- include('./footer') %>
+  </main>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

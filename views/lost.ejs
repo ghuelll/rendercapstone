@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,">
+    <link rel="icon" href="https://www.tip.edu.ph/assets/Uploads/TIP-INFORMAL-LOGO-04-2.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Lost | Office of Student Affairs</title>
+ 
+</head>
+<body>
+  <%- include('navbar') %>
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6 order-md-1">
+                <h4 class="mb-3">I have lost an item</h4>
+                <form action="/lost" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="studentNum">Student No</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">#</span>
+                                </div>
+                                <input type="text" class="form-control" id="studentNum" name="studentNum" value="<%= user.studentNumber %>" placeholder="Student No" required readonly>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    Your Student Number is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="firstName">Reporter's Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="<%= user.name %>" required readonly> 
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label for="email">Email <span class="text-muted">(TIP G-mail Account)</span></label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="user@tip.edu.ph" value="<%= user.email %>" required readonly>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address for updates.
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="contactNum">Contact Number</label>
+                            <input type="text" class="form-control" id="contactNum" name="contactNum" placeholder="" value="<%= user.contactNumber %>" required readonly> 
+                            <div class="invalid-feedback">
+                                Contact number required.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="mb-3">
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Please enter where you lost the item." required>
+                            <div class="invalid-feedback">
+                                Please enter where you lost the item.
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="building">Building</label>
+                            <select class="custom-select d-block w-100" id="building" name="building" required>
+                                <option value="">Choose...</option>
+                                <option>Arlegui</option>
+                                <option>Casal</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid Department.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label for="department">Department/ Office<span class="text-muted"> (where it is lost)</span></label>
+                            <select class="custom-select d-block w-100" id="department" name="department" required>
+                                <option value="">Choose...</option>
+                                <option>College of Computer Studies</option>
+                                <option>College of Architecture</option>
+                                <option>College of Engineering</option>
+                                <option>College of Business Education</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid Department.
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="">Date & Time</label>
+                            <input type="datetime-local" name="datetime" id="datetime" class="form-control" required>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="objTitle">Object Title <span class="text-muted">e.g lost camera, gold ring, toyota car key</span></label>
+                        <input type="text" class="form-control" id="objTitle" name="objTitle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="course">Category</label>
+                        <select class="custom-select d-block w-100" id="category" name="category" required>
+                          <option selected disabled>Choose...</option>
+                          <option value="accessories">Accessories</option>
+                          <option value="bag">Bag</option>
+                          <option value="docs">Books and Documents</option>
+                          <option value="clothing">Clothing</option>
+                          <option value="footwear">Footwear</option>
+                          <option value="electronics">Electronics</option>
+                          <option value="identification">Identification</option>
+                          <option value="jewelry">Jewelry</option>
+                          <option value="keys">Keys</option>
+                          <option value="miscellaneous">Miscellaneous</option>
+                          <option value="money">Money</option>
+                          <option  value="sports">Sports equipment</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please provide a valid category.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="Description" name="description" rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUpload">Image Upload</label>
+                        <input type="file" class="form-control-file" id="file" name="file" accept="image/png, image/gif, image/jpeg" required>
+                      </div>
+                      &nbsp;
+                    <hr class="mb-3">
+                    
+                    <button class="btn btn-warning btn-lg btn-block" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <%- include('./footer') %>
+    </div> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
